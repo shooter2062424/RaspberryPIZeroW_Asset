@@ -12,5 +12,7 @@ Backend
 1.Python3.5
 2.OpenCV 3.3.0
   howto:
-    ref--> https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/
+    ref--> 
+    1.https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/
+    2.https://www.superdatascience.com/opencv-face-recognition/
     
