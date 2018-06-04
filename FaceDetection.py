@@ -30,17 +30,27 @@ class FaceDetection:
         self.camID = camID
         self.camResX = 640
         self.camResY = 480
+        self.waitTime = 25
+        self.minSize = 80
+        self.b_showVideo = True
         if useLowPower:
-            self.camResX = 320
-            self.camRexY = 240
+            self.camResX = 80
+            self.camRexY = 60
+            self.waitTime = 500
+            self.minSize = 30
+            self.b_showVideo = False
     
     #method
     def DisplayCam(self):
+        if not self.b_showVideo:
+            print('The imshow has been disabled!')
+            return
+        
         self.__openCam()
         while self.cam.isOpened():
             ret, frame = self.cam.read()
             cv.imshow("DISPLAY", frame)
-            if cv.waitKey(1) & 0xFF == ord('q'):
+            if cv.waitKey(self.waitTime) & 0xFF == ord('q'):
                 break
         self.__closeCam()
         cv.destroyAllWindows()
@@ -53,13 +63,16 @@ class FaceDetection:
         while self.cam.isOpened():
             ret, frame = self.cam.read()
             grayImg = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-            faces = FaceDetection.haarFile.detectMultiScale(grayImg, scaleFactor=1.1, minNeighbors=5, minSize=(80, 80), flags=cv.CASCADE_SCALE_IMAGE)
+            faces = FaceDetection.haarFile.detectMultiScale(grayImg, scaleFactor=1.1, minNeighbors=5, minSize=(self.minSize, self.minSize), flags=cv.CASCADE_SCALE_IMAGE)
             
-            for (x, y, w, h) in faces:
-                cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-            
-            cv.imshow('Detection', frame)
-            if cv.waitKey(1) & 0xFF == ord('q'):
+            if self.b_showVideo:
+                for (x, y, w, h) in faces:
+                    cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+                    cv.imshow('Detection', frame)
+            else:
+                print('Face Detected: ', len(faces))
+
+            if cv.waitKey(self.waitTime) & 0xFF == ord('q'):
                 break
         self.__closeCam()
         cv.destroyAllWindows()
