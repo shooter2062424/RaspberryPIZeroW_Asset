@@ -14,4 +14,5 @@ Backend
   Ref                                                                                                         
     1.https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/
     2.https://www.superdatascience.com/opencv-face-recognition/
+    3.https://oscarliang.com/raspberry-pi-and-arduino-connected-serial-gpio/
     
